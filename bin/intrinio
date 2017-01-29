@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+require 'intrinio'
+Intrinio::CommandLine.instance.execute ARGV
