@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'runfile', '~> 0.8'
   s.add_development_dependency 'runfile-tasks', '~> 0.4'
   s.add_development_dependency 'rspec', '~> 3.5'
-  s.add_development_dependency 'rdoc', '~> 4.2'
+  s.add_development_dependency 'rdoc', '~> 5.0'
   s.add_development_dependency 'byebug', '~> 9.0'
   s.add_development_dependency 'simplecov', '~> 0.13'
   s.add_development_dependency 'yard', '~> 0.8'
