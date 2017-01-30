@@ -16,7 +16,7 @@ module Intrinio
 
     # Allow using any method as the first segment of the path
     # object.user 'details' becomes object.get 'user/details'
-    def method_missing(method_sym, *arguments, &block)
+    def method_missing(method_sym, *arguments, &_block)
       get "/#{method_sym}", *arguments
     end
 
