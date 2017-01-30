@@ -63,6 +63,13 @@ a method name, like this:
 result = intrinio.indices type: 'economic', page_size: 5
 ```
 
+In other words, these calls are the same:
+
+```ruby
+intrinio.get 'endpoint', param: value
+intrinio.endpoint, param: value
+```
+
 By default, you will get a ruby hash in return. If you wish to get the raw
 output, you can use the `get!` method:
 
@@ -115,11 +122,11 @@ Intrinio authentication, simply set it in the environment variables
 
 These commands are available:
 
-`$ intrinio get PATH [PARAMS...]` - print the output.  
+`$ intrinio get [--csv] PATH [PARAMS...]` - print the output.  
 `$ intrinio pretty PATH [PARAMS...]` - print a pretty JSON.  
 `$ intrinio see PATH [PARAMS...]` - print a colored output.  
 `$ intrinio url PATH [PARAMS...]` - show the constructed URL.  
-`$ intrinio save FILE PATH [PARAMS...]` - save the output to a file.  
+`$ intrinio save [--csv] FILE PATH [PARAMS...]` - save the output to a file.  
 
 Run `intrinio --help` for more information, or view the [full usage help][2].
 
@@ -133,7 +140,7 @@ $ intrinio see indices page_size:5
 $ intrinio see indices "query:interest rate" page_size:5
 
 # Saves a file
-$ intrinio save aapl.json historical_data identifier:AAPL \
+$ intrinio save --csv aapl.csv historical_data identifier:AAPL \
     item:adj_close_price frequency:monthly page_size:10
 
 # Shows the URL that Intrinio has constructed, good for debugging
