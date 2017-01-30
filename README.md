@@ -47,6 +47,7 @@ First, require and initialize with your username and password.
 ```ruby
 require 'intrinio'
 intrinio = Intrinio::API.new username: 'me', password: 'secret'
+# or: Intrinio::API.new auth: 'me:secret'
 ```
 
 Now, you can access any Intrinio endpoint with any optional parameter, like
