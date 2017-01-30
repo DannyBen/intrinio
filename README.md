@@ -13,6 +13,7 @@ This gem provides both a Ruby library and a command line interface for the
 
 ---
 
+
 Install
 --------------------------------------------------
 
@@ -26,6 +27,7 @@ Or with bundler:
 gem 'intrinio'
 ```
 
+
 Features
 --------------------------------------------------
 
@@ -35,6 +37,7 @@ Features
 * Display output in various formats.
 * Save output to a file.
 * Includes a built in file cache (disabled by default).
+
 
 Usage
 --------------------------------------------------
@@ -86,6 +89,7 @@ puts intrinio.historical_data identifier: '$INTDSRUSM193N', item: 'level'
 intrinio.param page_size: nil # remove param
 ```
 
+
 Command Line
 --------------------------------------------------
 
@@ -104,6 +108,26 @@ These commands are available:
 `$ intrinio save FILE PATH [PARAMS...]` - save the output to a file.  
 
 Run `intrinio --help` for more information, or view the [full usage help][2].
+
+Examples:
+
+```bash
+# Shows the first 5 indices
+$ intrinio see indices page_size:5
+
+# Pass arguments that require spaces
+$ intrinio see indices "query:interest rate" page_size:5
+
+# Saves a file
+$ intrinio save aapl.json historical_data identifier:AAPL \
+    item:adj_close_price frequency:monthly page_size:10
+
+# Shows the URL that Intrinio has constructed, good for debugging
+$ intrinio url indices query:interest page_size:5
+# => https://api.intrinio.com/indices?query=interest&page_size=5
+
+```
+
 
 Caching
 --------------------------------------------------

@@ -36,3 +36,19 @@ Parameters:
 
   FILE:
     Path to the output file.
+
+Examples:
+  intrinio see indices page_size:5
+
+  intrinio pretty indices "query:interest rate" page_size:5
+
+  intrinio see companies identifier:AAPL
+
+  intrinio see historical_data identifier:\$INTDSRUSM193N item:level \
+    start_date:2015-01-01
+
+  intrinio see historical_data identifier:\$SP500 item:percent_change \
+    frequency:monthly page_size:10
+
+  intrinio save aapl.json historical_data identifier:AAPL \
+    item:adj_close_price frequency:monthly page_size:10
