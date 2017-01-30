@@ -1,4 +1,5 @@
 require 'json'
+require 'csv'
 
 module Intrinio
   # Provides access to all the Intrinio API endpoints
@@ -6,6 +7,11 @@ module Intrinio
     attr_reader :opts
 
     def initialize(opts={})
+      if opts[:auth] 
+        opts[:username], opts[:password] = opts[:auth].split ':'
+        opts.delete :auth
+      end
+
       defaults = {
         username: nil,
         password: nil,
@@ -34,6 +40,28 @@ module Intrinio
       end
       
       super opts[:base_url]
+    end
+
+    def get_csv(*args)
+      result = get *args
+      
+      raise Intrinio::BadResponse, "Result is not a hash" unless result.is_a? Hash
+      raise Intrinio::IncompatibleResponse, "Result does not contain a data attribute" unless result.has_key? :data
+      
+      data = result[:data]
+
+      header = data.first.keys
+      result = CSV.generate do |csv|
+        csv << header
+        data.each { |row| csv << row.values }
+      end
+
+      result
+    end
+
+    def save_csv(file, *args)
+      data = get_csv *args
+      File.write file, data
     end
   end
 end

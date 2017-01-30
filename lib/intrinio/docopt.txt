@@ -1,11 +1,11 @@
 Intrinio
 
 Usage:
-  intrinio get PATH [PARAMS...]
+  intrinio get [--csv] PATH [PARAMS...]
   intrinio pretty PATH [PARAMS...]
   intrinio see PATH [PARAMS...]
   intrinio url PATH [PARAMS...]
-  intrinio save FILE PATH [PARAMS...]
+  intrinio save [--csv] FILE PATH [PARAMS...]
   intrinio (-h|--help|--version)
 
 Commands:
@@ -37,6 +37,12 @@ Parameters:
   FILE:
     Path to the output file.
 
+Flags:
+  --csv
+    When this flag is provided, the data will be converted to CSV before
+    it is displayed or saved. Note that this works only with endpoints that
+    have a 'data' attribute.
+
 Examples:
   intrinio see indices page_size:5
 
@@ -52,3 +58,7 @@ Examples:
 
   intrinio save aapl.json historical_data identifier:AAPL \
     item:adj_close_price frequency:monthly page_size:10
+
+  intrinio get --csv indices page_size:5
+  
+  intrinio save --csv indices.csv indices page_size:5

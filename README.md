@@ -33,9 +33,9 @@ Features
 
 * Easy to use interface.
 * Use as a library or through the command line.
-* Access any Intrinio endpoint directly.
-* Display output in various formats.
-* Save output to a file.
+* Access any Intrinio endpoint and option directly.
+* Display output as JSON or CSV.
+* Save output to a file as JSON or CSV.
 * Includes a built in file cache (disabled by default).
 
 
@@ -71,10 +71,24 @@ result = intrinio.get! "indices", type: 'economic', page_size: 5
 # => JSON string
 ```
 
+When calling any endpoint that returns a `data` attribute, you can also
+call `get_csv` in order to convert the data to a CSV string.
+
+```ruby
+result = intrinio.get_csv "indices", page_size: 5
+# => CSV string
+```
+
 To save the output directly to a file, use the `save` method:
 
 ```ruby
 intrinio.save "filename.json", "indices", type: 'economic', page_size: 5
+```
+
+Or, to save CSV, use the `save_csv` method:
+
+```ruby
+intrinio.save_csv "filename.csv" "indices", page_size: 5
 ```
 
 Debugging your request and adding "sticky" query parameters that stay with
