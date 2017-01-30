@@ -27,7 +27,7 @@ describe WebAPI do
 
     it "deletes params" do
       api.param duke: 'nukem', han: 'solo'
-      api.params han: nil
+      api.param han: nil
       expect(api.default_params).to_not have_key 'han'
       expect(api.default_params[:duke]).to eq 'nukem'
     end

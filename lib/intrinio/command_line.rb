@@ -27,6 +27,8 @@ module Intrinio
 
     private
 
+    attr_reader :csv
+
     def intrinio!
       Intrinio::API.new options
     end
@@ -37,6 +39,7 @@ module Intrinio
       path   = args['PATH']
       params = args['PARAMS']
       file   = args['FILE']
+      @csv   = args['--csv']
       
       return get(path, params)        if args['get']
       return pretty(path, params)     if args['pretty']
@@ -46,16 +49,23 @@ module Intrinio
     end
 
     def get(path, params)
-      puts intrinio.get! path, translate_params(params)
+      if csv
+        puts intrinio.get_csv path, translate_params(params)
+      else
+        puts intrinio.get! path, translate_params(params)
+      end
     end
 
     def save(file, path, params)
-      success = intrinio.save file, path, translate_params(params)
+      if csv
+        success = intrinio.save_csv file, path, translate_params(params)
+      else
+        success = intrinio.save file, path, translate_params(params)
+      end
       puts success ? "Saved #{file}" : "Saving failed"
     end
 
     def pretty(path, params)
-      intrinio.format = :json
       response = intrinio.get path, translate_params(params)
       puts JSON.pretty_generate response
     end
