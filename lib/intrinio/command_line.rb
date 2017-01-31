@@ -16,7 +16,7 @@ module Intrinio
       begin
         args = Docopt::docopt(doc, argv: argv, version: VERSION)
         handle args
-      rescue Docopt::Exit => e
+      rescue Docopt::Exit, Intrinio::MissingAuth => e
         puts e.message
       end
     end
@@ -27,7 +27,7 @@ module Intrinio
 
     private
 
-    attr_reader :csv
+    attr_reader :path, :params, :file, :csv
 
     def intrinio!
       Intrinio::API.new options
@@ -36,57 +36,61 @@ module Intrinio
     # Called when the arguments match one of the usage patterns. Will 
     # delegate action to other, more specialized methods.
     def handle(args)
-      path   = args['PATH']
-      params = args['PARAMS']
-      file   = args['FILE']
-      @csv   = args['--csv']
+      @path   = args['PATH']
+      @params = translate_params args['PARAMS']
+      @file   = args['FILE']
+      @csv    = args['--csv']
+
+      if intrinio_auth.empty?
+        raise Intrinio::MissingAuth, "Missing Authentication\nPlease set INTRINIO_AUTH=username:password"
+      end
       
-      return get(path, params)        if args['get']
-      return pretty(path, params)     if args['pretty']
-      return see(path, params)        if args['see']
-      return url(path, params)        if args['url']
-      return save(file, path, params) if args['save']
+      return get    if args['get']
+      return pretty if args['pretty']
+      return see    if args['see']
+      return url    if args['url']
+      return save   if args['save']
     end
 
-    def get(path, params)
+    def get
       if csv
-        puts intrinio.get_csv path, translate_params(params)
+        puts intrinio.get_csv path, params
       else
-        puts intrinio.get! path, translate_params(params)
+        puts intrinio.get! path, params
       end
     end
 
-    def save(file, path, params)
+    def save
       if csv
-        success = intrinio.save_csv file, path, translate_params(params)
+        success = intrinio.save_csv file, path, params
       else
-        success = intrinio.save file, path, translate_params(params)
+        success = intrinio.save file, path, params
       end
       puts success ? "Saved #{file}" : "Saving failed"
     end
 
-    def pretty(path, params)
-      response = intrinio.get path, translate_params(params)
+    def pretty
+      response = intrinio.get path, params
       puts JSON.pretty_generate response
     end
 
-    def see(path, params)
-      ap intrinio.get path, translate_params(params)
+    def see
+      ap intrinio.get path, params
     end
 
-    def url(path, params)
+    def url
       intrinio.debug = true
-      puts intrinio.get path, translate_params(params)
+      puts intrinio.get path, params
       intrinio.debug = false
     end
 
     # Convert a params array like [key:value, key:value] to a hash like
     # {key: value, key: value}
-    def translate_params(params)
-      return nil if params.empty?
+    def translate_params(pairs)
+      return nil if pairs.empty?
       result = {}
-      params.each do |param|
-        key, value = param.split ':'
+      pairs.each do |pair|
+        key, value = pair.split ':'
         result[key] = value
       end
       result

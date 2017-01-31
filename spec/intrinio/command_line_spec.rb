@@ -52,6 +52,23 @@ describe CommandLine do
       end
     end
 
+    context "without INTRINIO_AUTH" do
+      let(:command) { %w[see indices page_size:1] }
+
+      before do
+        @auth = ENV['INTRINIO_AUTH']
+        ENV.delete 'INTRINIO_AUTH'
+      end
+
+      after do
+        ENV['INTRINIO_AUTH'] = @auth
+      end
+
+      it "shows a friendly error" do
+        expect {cli.execute command}.to output(/Missing Authentication/).to_stdout
+      end
+    end
+
     context "with url command" do
       let(:command) { %w[url doesnt really:matter] }
 
