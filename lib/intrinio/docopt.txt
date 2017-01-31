@@ -43,6 +43,19 @@ Flags:
     it is displayed or saved. Note that this works only with endpoints that
     have a 'data' attribute.
 
+Environment Variables:
+  INTRINIO_AUTH=username:password
+    Set Intrinio username and password. This variable is required.
+
+  INTRINIO_CACHE_LIFE=360
+    Set the number of seconds to consider the cache fresh. This variable
+    it optional.
+
+  INTRINIO_CACHE_DIR=./cache
+    Set the cache directory. This variable is optional.
+    If both INTRINIO_CACHE_DIR and INTRINIO_CACHE_LIFE are not set, requests
+    will not be cached.
+
 Examples:
   intrinio see indices page_size:5
 
