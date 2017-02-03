@@ -44,9 +44,10 @@ module Intrinio
 
     def get_csv(*args)
       result = get *args
-      
-      raise Intrinio::BadResponse, "Result is not a hash" unless result.is_a? Hash
-      raise Intrinio::IncompatibleResponse, "Result does not contain a data attribute" unless result.has_key? :data
+
+      raise Intrinio::BadResponse, "API said '#{result}'" if result.is_a? String
+      raise Intrinio::BadResponse, "Got a #{result.class},expected a Hash" unless result.is_a? Hash
+      raise Intrinio::IncompatibleResponse, "There is no data attribute in the response" unless result.has_key? :data
       
       data = result[:data]
 
