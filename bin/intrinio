@@ -1,4 +1,9 @@
 #!/usr/bin/env ruby
 
 require 'intrinio'
-Intrinio::CommandLine.instance.execute ARGV
+
+begin
+  Intrinio::CommandLine.instance.execute ARGV
+rescue Intrinio::BadResponse, Intrinio::IncompatibleResponse => e
+  STDERR.puts "#{e.class} - #{e.message}"
+end
