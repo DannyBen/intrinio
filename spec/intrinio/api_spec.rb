@@ -69,6 +69,14 @@ describe API do
         }.to raise_error(IncompatibleResponse)
       end
     end
+
+    context "with a response that has an empty data attribute" do
+      it "raises an error" do
+        expect{
+          intrinio.get_csv :historical_data, identifier:'$CPALTT01USQ661S', item: :change
+        }.to raise_error(IncompatibleResponse)
+      end
+    end
   end
 
   describe '#save_csv' do

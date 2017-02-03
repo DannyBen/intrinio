@@ -46,8 +46,9 @@ module Intrinio
       result = get *args
 
       raise Intrinio::BadResponse, "API said '#{result}'" if result.is_a? String
-      raise Intrinio::BadResponse, "Got a #{result.class},expected a Hash" unless result.is_a? Hash
+      raise Intrinio::BadResponse, "Got a #{result.class}, expected a Hash" unless result.is_a? Hash
       raise Intrinio::IncompatibleResponse, "There is no data attribute in the response" unless result.has_key? :data
+      raise Intrinio::IncompatibleResponse, "The data attribute in the response is empty" unless result[:data]
       
       data = result[:data]
 
