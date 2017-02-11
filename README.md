@@ -96,7 +96,7 @@ intrinio.save "filename.json", "indices", type: 'economic', page_size: 5
 Or, to save CSV, use the `save_csv` method:
 
 ```ruby
-intrinio.save_csv "filename.csv" "indices", page_size: 5
+intrinio.save_csv "filename.csv", "indices", page_size: 5
 ```
 
 Debugging your request and adding "sticky" query parameters that stay with
@@ -106,7 +106,7 @@ you for the following requests is also easy:
 intrinio.debug = true
 intrinio.param page_size: 10, order_direction: 'asc'
 puts intrinio.historical_data identifier: '$INTDSRUSM193N', item: 'level'
-# => "https://api.intrinio.com/historical_data?page_size=10&order_direction=asc&identifier=%24INTDSRUSM193N&item=level
+# => https://api.intrinio.com/historical_data?page_size=10&order_direction=asc&identifier=%24INTDSRUSM193N&item=level
 
 intrinio.param page_size: nil # remove param
 ```
