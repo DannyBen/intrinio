@@ -115,7 +115,7 @@ describe CommandLine do
     end
 
     context "with save command" do
-      let(:command) { %W[save tmp.json historical_data identifier:AAPL item:adj_close_price start_date:2016-01-01 end_date:2016-01-31 sort_order:asc] }
+      let(:command) { %W[save tmp.json historical_data identifier:AAPL item:close_price start_date:2016-01-01 end_date:2016-01-31 sort_order:asc] }
       let(:filename) { 'tmp.json' }
 
       it "saves a file" do
@@ -132,7 +132,7 @@ describe CommandLine do
     end
 
     context "with save --csv command" do
-      let(:command) { %W[save --csv tmp.csv historical_data identifier:AAPL item:adj_close_price start_date:2016-01-01 end_date:2016-01-31 sort_order:asc] }
+      let(:command) { %W[save --csv tmp.csv historical_data identifier:AAPL item:close_price start_date:2016-01-01 end_date:2016-01-31 sort_order:asc] }
       let(:filename) { 'tmp.csv' }
 
       it "saves a csv file" do

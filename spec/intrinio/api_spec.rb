@@ -49,7 +49,7 @@ describe API do
     context "with a valid request" do
       it "returns a csv string" do
         result = intrinio.get_csv :historical_data, identifier: 'AAPL', 
-          item: 'adj_close_price', start_date: '2016-01-01', 
+          item: 'close_price', start_date: '2016-01-01', 
           end_date: '2016-01-31', sort_order: 'asc'
           
         expect(result).to eq fixture('aapl.csv')
@@ -87,7 +87,7 @@ describe API do
       expect(File).not_to exist(filename)
 
       intrinio.save_csv filename, :historical_data, identifier: 'AAPL',
-        item: 'adj_close_price', start_date: '2016-01-01', 
+        item: 'close_price', start_date: '2016-01-01', 
         end_date: '2016-01-31', sort_order: 'asc'
       
       expect(File).to exist(filename)
