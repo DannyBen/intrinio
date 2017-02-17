@@ -69,7 +69,7 @@ describe CommandLine do
       end
     end
 
-    context "with url command" do
+    context "with url command", :focus do
       let(:command) { %w[url doesnt really:matter] }
 
       it "returns a url" do
@@ -109,7 +109,7 @@ describe CommandLine do
       let(:command) { %w[see indices page_size:1] }
 
       it "awesome-prints output" do
-        expected = /:data.*=>.*\[/
+        expected = /"data".*=>.*\[/
         expect {cli.execute command}.to output(expected).to_stdout
       end
     end
@@ -152,7 +152,7 @@ describe CommandLine do
       let(:command) { %W[get not_here] }
       
       it "fails with honor" do
-        expect {cli.execute command}.to output(/404 Not Found/).to_stdout
+        expect {cli.execute command}.to output(/<h1>Not Found<\/h1>/).to_stdout
       end
     end
   end

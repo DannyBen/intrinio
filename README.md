@@ -154,7 +154,7 @@ $ intrinio url indices query:interest page_size:5
 Caching
 --------------------------------------------------
 
-We are using the [WebCache][3] gem for automatic HTTP caching.
+We are using the [Lightly][3] gem for automatic HTTP caching.
 To take the path of least surprises, caching is disabled by default.
 
 You can enable and customize it by either passing options on 
@@ -192,4 +192,4 @@ $ intrinio get indices
 
 [1]: https://www.intrinio.com
 [2]: https://github.com/DannyBen/intrinio/blob/master/lib/intrinio/docopt.txt
-[3]: https://github.com/DannyBen/webcache
+[3]: https://github.com/DannyBen/lightly

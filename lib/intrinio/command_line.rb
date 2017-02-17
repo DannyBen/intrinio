@@ -56,7 +56,8 @@ module Intrinio
       if csv
         puts intrinio.get_csv path, params
       else
-        puts intrinio.get! path, params
+        payload = intrinio.get! path, params
+        puts payload.response.body
       end
     end
 
@@ -70,8 +71,8 @@ module Intrinio
     end
 
     def pretty
-      response = intrinio.get path, params
-      puts JSON.pretty_generate response
+      payload = intrinio.get path, params
+      puts JSON.pretty_generate payload
     end
 
     def see
@@ -79,19 +80,17 @@ module Intrinio
     end
 
     def url
-      intrinio.debug = true
-      puts intrinio.get path, params
-      intrinio.debug = false
+      puts intrinio.url path, params
     end
 
     # Convert a params array like [key:value, key:value] to a hash like
     # {key: value, key: value}
     def translate_params(pairs)
-      return nil if pairs.empty?
       result = {}
+      return result if pairs.empty?
       pairs.each do |pair|
         key, value = pair.split ':'
-        result[key] = value
+        result[key.to_sym] = value
       end
       result
     end

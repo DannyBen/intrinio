@@ -16,14 +16,7 @@ describe 'bin/intrinio' do
   context "with bad response" do
     it "exits with honor" do
       command = 'bin/intrinio get --csv historical_data identifier:asd 2>&1'
-      expect(`#{command}`).to eq "Intrinio::BadResponse - API said '400 Bad Request'\n"
-    end
-  end
-
-  context "with incompatible response" do
-    it "exits with honor" do
-      command = 'bin/intrinio get --csv indices identifier:\$FF 2>&1'
-      expect(`#{command}`).to eq "Intrinio::IncompatibleResponse - There is no data attribute in the response\n"
+      expect(`#{command}`).to eq "Intrinio::BadResponse - 400 Bad Request\n"
     end
   end
 end

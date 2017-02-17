@@ -1,56 +1,45 @@
-require 'json'
-require 'csv'
+require 'apicake'
 
 module Intrinio
-  # Provides access to all the Intrinio API endpoints
-  class API < WebAPI
-    attr_reader :opts
+  # Provides access to all the Intrinio API endpoints with dynamic methods
+  # anc caching.
+  class API < APICake::Base
+    base_uri 'https://api.intrinio.com'
 
+    attr_reader :username, :password
+
+    # Initializes the API with authentication and caching options.
     def initialize(opts={})
       if opts[:auth] 
         opts[:username], opts[:password] = opts[:auth].split ':'
         opts.delete :auth
       end
 
-      defaults = {
-        username: nil,
-        password: nil,
-        use_cache: false,
-        cache_dir: nil,
-        cache_life: nil,
-        base_url: "https://api.intrinio.com"
-      }
-
-      opts = defaults.merge! opts
-      @opts = opts
-
-      username, password = opts[:username], opts[:password]
+      @username, @password = opts[:username], opts[:password]
 
       cache.disable unless opts[:use_cache]
       cache.dir = opts[:cache_dir] if opts[:cache_dir]
       cache.life = opts[:cache_life] if opts[:cache_life]
-      cache.options[:http_basic_authentication] = [username, password]
-
-      after_request do |response| 
-        begin
-          JSON.parse response, symbolize_names: true
-        rescue JSON::ParserError
-          response
-        end
-      end
-      
-      super opts[:base_url]
     end
 
-    def get_csv(*args)
-      result = get *args
+    # Returns a hash that will be merged into the HTTParty get calls.
+    def default_params
+      { basic_auth: { username: username, password: password } }
+    end
 
-      raise Intrinio::BadResponse, "API said '#{result}'" if result.is_a? String
-      raise Intrinio::BadResponse, "Got a #{result.class}, expected a Hash" unless result.is_a? Hash
-      raise Intrinio::IncompatibleResponse, "There is no data attribute in the response" unless result.has_key? :data
-      raise Intrinio::IncompatibleResponse, "The data attribute in the response is empty" unless result[:data]
-      
-      data = result[:data]
+    # Forwards all arguments to #get! and converts the JSON response to CSV
+    # If the response contains one or more arrays, the first array will be
+    # the CSV output. Otherwise, the response itself will be used.
+    def get_csv(*args)
+      payload = get!(*args)
+
+      if payload.response.code != '200'
+        raise Intrinio::BadResponse, "#{payload.response.code} #{payload.response.msg}"
+      end
+
+      response = payload.parsed_response
+
+      data = csv_node response
 
       header = data.first.keys
       result = CSV.generate do |csv|
@@ -61,9 +50,20 @@ module Intrinio
       result
     end
 
+    # Send a request, convert it to CSV and save it to a file.
     def save_csv(file, *args)
-      data = get_csv *args
-      File.write file, data
+      File.write file, get_csv(*args)
+    end
+
+    private
+
+    # Determins which part of the data is best suited to be displayed 
+    # as CSV. 
+    # - In case there is an array in the data, it will be returned.
+    # - Otherwise, we will use the entire response as a single row CSV.
+    def csv_node(data)
+      arrays = data.keys.select { |key| data[key].is_a? Array }
+      arrays.empty? ? [data] : data[arrays.first]
     end
   end
 end
