@@ -84,6 +84,7 @@ control over the response, use the `get!` method instead:
 ```ruby
 result = intrinio.get! "indices", type: 'economic', page_size: 5 
 # Request Object
+
 p payload.request.class
 # => HTTParty::Request
 
