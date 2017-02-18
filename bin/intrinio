@@ -4,6 +4,6 @@ require 'intrinio'
 
 begin
   Intrinio::CommandLine.instance.execute ARGV
-rescue Intrinio::BadResponse, Intrinio::IncompatibleResponse => e
+rescue APICake::BadResponse => e
   STDERR.puts "#{e.class} - #{e.message}"
 end

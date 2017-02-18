@@ -10,19 +10,14 @@ describe API do
   describe '#new' do
     it "initializes with credentials" do
       intrinio = API.new username: 'me', password: 'secret'
-      expect(intrinio.opts[:username]).to eq 'me'
-      expect(intrinio.opts[:password]).to eq 'secret'
+      expect(intrinio.username).to eq 'me'
+      expect(intrinio.password).to eq 'secret'
     end
 
     it "initializes with compact credentials" do
       intrinio = API.new auth: 'me:secret'
-      expect(intrinio.opts[:username]).to eq 'me'
-      expect(intrinio.opts[:password]).to eq 'secret'
-    end
-
-    it "sets the credentials in the webcache" do
-      intrinio = API.new username: 'me', password: 'secret'
-      expect(intrinio.cache.options[:http_basic_authentication]).to eq ['me', 'secret']
+      expect(intrinio.username).to eq 'me'
+      expect(intrinio.password).to eq 'secret'
     end
 
     it "starts with cache disabled" do
@@ -32,12 +27,10 @@ describe API do
 
     it "initializes with options" do
       intrinio = API.new username: 'me', password: 'secret',
-        base_url: 'http://new.intrinio.com/v99',
         use_cache: true,
         cache_dir: 'custom',
         cache_life: 1337
 
-      expect(intrinio.base_url).to eq 'http://new.intrinio.com/v99'
       expect(intrinio.cache.dir).to eq 'custom'
       expect(intrinio.cache.life).to eq 1337
       expect(intrinio.cache).to be_enabled
@@ -56,25 +49,9 @@ describe API do
       end
     end
 
-    context "with a non hash response" do
+    context "with an invalid request" do
       it "raises an error" do
-        expect{intrinio.get_csv :bogus_endpoint}.to raise_error(BadResponse)
-      end
-    end
-
-    context "with a response that has no data attribute" do
-      it "raises an error" do
-        expect{
-          intrinio.get_csv :companies, identifier:'AAPL'
-        }.to raise_error(IncompatibleResponse)
-      end
-    end
-
-    context "with a response that has an empty data attribute" do
-      it "raises an error" do
-        expect{
-          intrinio.get_csv :historical_data, identifier:'$CPALTT01USQ661S', item: :change
-        }.to raise_error(IncompatibleResponse)
+        expect{intrinio.get_csv :bogus_endpoint}.to raise_error(APICake::BadResponse)
       end
     end
   end
