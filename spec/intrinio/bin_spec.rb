@@ -16,7 +16,7 @@ describe 'bin/intrinio' do
   context "with bad response" do
     it "exits with honor" do
       command = 'bin/intrinio get --csv historical_data identifier:asd 2>&1'
-      expect(`#{command}`).to eq "Intrinio::BadResponse - 400 Bad Request\n"
+      expect(`#{command}`).to eq "APICake::BadResponse - 400 Bad Request\n"
     end
   end
 end

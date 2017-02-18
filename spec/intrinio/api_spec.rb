@@ -51,7 +51,7 @@ describe API do
 
     context "with an invalid request" do
       it "raises an error" do
-        expect{intrinio.get_csv :bogus_endpoint}.to raise_error(BadResponse)
+        expect{intrinio.get_csv :bogus_endpoint}.to raise_error(APICake::BadResponse)
       end
     end
   end

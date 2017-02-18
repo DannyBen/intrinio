@@ -71,21 +71,55 @@ intrinio.get 'endpoint', param: value
 intrinio.endpoint, param: value
 ```
 
-By default, you will get a ruby hash in return. If you wish to get the raw
-output, you can use the `get!` method:
+as well as these two:
+
+```ruby
+intrinio.get 'endpoint/sub', param: value
+intrinio.endpoint 'sub', param: value
+```
+
+By default, you will get a ruby hash in return. If you wish to have more 
+control over the response, use the `get!` method instead:
 
 ```ruby
 result = intrinio.get! "indices", type: 'economic', page_size: 5 
+# Request Object
+p payload.request.class
+# => HTTParty::Request
+
+# Response Object
+p payload.response.class
+# => Net::HTTPOK
+
+p payload.response.body
 # => JSON string
+
+p payload.response.code
+# => 200
+
+p payload.response.msg
+# => OK
+
+# Headers Object
+p payload.headers
+# => Hash with headers
+
+# Parsed Response Object
+p payload.parsed_response
+# => Hash with HTTParty parsed response 
+#    (this is the content returned with #get)
 ```
 
-When calling any endpoint that returns a `data` attribute, you can also
-call `get_csv` in order to convert the data to a CSV string.
+You can get the response as CSV by calling `get_csv`:
 
 ```ruby
 result = intrinio.get_csv "indices", page_size: 5
 # => CSV string
 ```
+
+Intrinio automatically decides which part of the data to convert to CSV.
+When there is an array in the response, it will be used as the CSV data. 
+Otherwise, the entire response will be treated as a single-row CSV.
 
 To save the output directly to a file, use the `save` method:
 
@@ -99,17 +133,6 @@ Or, to save CSV, use the `save_csv` method:
 intrinio.save_csv "filename.csv", "indices", page_size: 5
 ```
 
-Debugging your request and adding "sticky" query parameters that stay with
-you for the following requests is also easy:
-
-```ruby
-intrinio.debug = true
-intrinio.param page_size: 10, order_direction: 'asc'
-puts intrinio.historical_data identifier: '$INTDSRUSM193N', item: 'level'
-# => https://api.intrinio.com/historical_data?page_size=10&order_direction=asc&identifier=%24INTDSRUSM193N&item=level
-
-intrinio.param page_size: nil # remove param
-```
 
 
 Command Line
