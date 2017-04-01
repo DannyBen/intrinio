@@ -1,7 +1,7 @@
 require "runfile-tasks"
 require_relative 'lib/intrinio'
 
-name    "Intrinio Developer Toolbelt"
+title   "Intrinio Developer Toolbelt"
 summary "Runfile tasks for building the Intrinio gem"
 version Intrinio::VERSION
 

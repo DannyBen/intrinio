@@ -1,5 +1,6 @@
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require 'date'
 require 'intrinio/version'
 
 Gem::Specification.new do |s|
@@ -20,11 +21,11 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'awesome_print', '~> 1.7'
   s.add_runtime_dependency 'apicake', '~> 0.1'
 
-  s.add_development_dependency 'runfile', '~> 0.8'
+  s.add_development_dependency 'runfile', '~> 0.9'
   s.add_development_dependency 'runfile-tasks', '~> 0.4'
   s.add_development_dependency 'rspec', '~> 3.5'
-  s.add_development_dependency 'rdoc', '~> 5.0'
+  s.add_development_dependency 'rdoc', '~> 5.1'
   s.add_development_dependency 'byebug', '~> 9.0'
-  s.add_development_dependency 'simplecov', '~> 0.13'
+  s.add_development_dependency 'simplecov', '~> 0.14'
   s.add_development_dependency 'yard', '~> 0.8'
 end
