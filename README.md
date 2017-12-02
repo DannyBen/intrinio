@@ -3,7 +3,8 @@ Intrinio API Library and Command Line
 
 [![Gem](https://img.shields.io/gem/v/intrinio.svg?style=flat-square)](https://rubygems.org/gems/intrinio)
 [![Travis](https://img.shields.io/travis/DannyBen/intrinio.svg?style=flat-square)](https://travis-ci.org/DannyBen/intrinio)
-[![Code Climate](https://img.shields.io/codeclimate/github/DannyBen/intrinio.svg?style=flat-square)](https://codeclimate.com/github/DannyBen/intrinio)
+[![Maintainability](https://img.shields.io/codeclimate/maintainability/DannyBen/intrinio.svg?style=flat-square)](https://codeclimate.com/github/DannyBen/intrinio)
+[![Issues](https://img.shields.io/codeclimate/issues/github/DannyBen/intrinio.svg?style=flat-square)](https://codeclimate.com/github/DannyBen/intrinio)
 [![Gemnasium](https://img.shields.io/gemnasium/DannyBen/intrinio.svg?style=flat-square)](https://gemnasium.com/DannyBen/intrinio)
 
 ---
