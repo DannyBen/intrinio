@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe CommandLine do
-  let(:cli) { Intrinio::CommandLine.instance }
+  let(:cli) { Intrinio::CommandLine }
 
   before :all do
     ENV['INTRINIO_AUTH'] or raise "Please set INTRINIO_AUTH=user:pass before running tests"
@@ -64,7 +64,7 @@ describe CommandLine do
         ENV['INTRINIO_AUTH'] = @auth
       end
 
-      it "shows a friendly error" do
+      it "shows a friendly error", :focus do
         expect {cli.execute command}.to output(/Missing Authentication/).to_stdout
       end
     end

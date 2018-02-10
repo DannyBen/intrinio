@@ -1,41 +1,19 @@
 require 'singleton'
-require 'docopt'
+require 'super_docopt'
 require 'json'
 require 'awesome_print'
 
 module Intrinio
 
   # Handles the command line interface
-  class CommandLine
-    include Singleton
-
-    # Gets an array of arguments (e.g. ARGV), executes the command if valid
-    # and shows usage patterns / help otherwise.
-    def execute(argv=[])
-      doc = File.read File.dirname(__FILE__) + '/docopt.txt'
-      begin
-        args = Docopt::docopt(doc, argv: argv, version: VERSION)
-        handle args
-      rescue Docopt::Exit, Intrinio::MissingAuth => e
-        puts e.message
-      end
-    end
-
-    def intrinio
-      @intrinio ||= intrinio!
-    end
-
-    private
+  class CommandLine < SuperDocopt::Base
+    version VERSION
+    docopt File.expand_path 'docopt.txt', __dir__
+    subcommands ['get', 'pretty', 'see', 'url', 'save']
 
     attr_reader :path, :params, :file, :csv
 
-    def intrinio!
-      Intrinio::API.new options
-    end
-
-    # Called when the arguments match one of the usage patterns. Will 
-    # delegate action to other, more specialized methods.
-    def handle(args)
+    def before_execute
       @path   = args['PATH']
       @params = translate_params args['PARAMS']
       @file   = args['FILE']
@@ -44,12 +22,6 @@ module Intrinio
       if intrinio_auth.empty?
         raise Intrinio::MissingAuth, "Missing Authentication\nPlease set INTRINIO_AUTH=username:password"
       end
-      
-      return get    if args['get']
-      return pretty if args['pretty']
-      return see    if args['see']
-      return url    if args['url']
-      return save   if args['save']
     end
 
     def get
@@ -93,6 +65,16 @@ module Intrinio
         result[key.to_sym] = value
       end
       result
+    end
+
+    def intrinio
+      @intrinio ||= intrinio!
+    end
+
+    private
+
+    def intrinio!
+      Intrinio::API.new options
     end
 
     def options
