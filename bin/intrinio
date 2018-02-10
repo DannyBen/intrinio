@@ -3,7 +3,9 @@
 require 'intrinio'
 
 begin
-  Intrinio::CommandLine.instance.execute ARGV
+  Intrinio::CommandLine.execute ARGV
 rescue APICake::BadResponse => e
   STDERR.puts "#{e.class} - #{e.message}"
+rescue Intrinio::MissingAuth => e
+  STDERR.puts e.message
 end
