@@ -19,4 +19,20 @@ describe 'bin/intrinio' do
       expect(`#{command}`).to eq "APICake::BadResponse - 400 Bad Request\n"
     end
   end
+
+  context "without INTRINIO_AUTH" do
+    before do
+      @auth = ENV['INTRINIO_AUTH']
+      ENV.delete 'INTRINIO_AUTH'
+    end
+
+    after do
+      ENV['INTRINIO_AUTH'] = @auth
+    end
+
+    it "shows a friendly error" do
+      command = 'bin/intrinio see indices page_size:1 2>&1'
+      expect(`#{command}`).to eq "Missing Authentication\nPlease set INTRINIO_AUTH=username:password\n"
+    end
+  end
 end

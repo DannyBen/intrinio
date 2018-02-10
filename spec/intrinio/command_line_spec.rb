@@ -64,12 +64,12 @@ describe CommandLine do
         ENV['INTRINIO_AUTH'] = @auth
       end
 
-      it "shows a friendly error", :focus do
-        expect {cli.execute command}.to output(/Missing Authentication/).to_stdout
+      it "raises a MissingAuth error" do
+        expect {cli.execute command}.to raise_error(Intrinio::MissingAuth)
       end
     end
 
-    context "with url command", :focus do
+    context "with url command" do
       let(:command) { %w[url doesnt really:matter] }
 
       it "returns a url" do
