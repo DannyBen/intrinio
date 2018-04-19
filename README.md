@@ -1,10 +1,10 @@
 Intrinio API Library and Command Line
 ==================================================
 
-[![Gem](https://img.shields.io/gem/v/intrinio.svg?style=flat-square)](https://rubygems.org/gems/intrinio)
-[![Build](https://img.shields.io/travis/DannyBen/intrinio/master.svg?style=flat-square)](https://travis-ci.org/DannyBen/intrinio)
-[![Maintainability](https://img.shields.io/codeclimate/maintainability/DannyBen/intrinio.svg?style=flat-square)](https://codeclimate.com/github/DannyBen/intrinio)
-[![Dependencies](https://img.shields.io/gemnasium/DannyBen/intrinio.svg?style=flat-square)](https://gemnasium.com/DannyBen/intrinio)
+[![Gem Version](https://badge.fury.io/rb/intrinio.svg)](https://badge.fury.io/rb/intrinio)
+[![Build Status](https://travis-ci.org/DannyBen/intrinio.svg?branch=master)](https://travis-ci.org/DannyBen/intrinio)
+[![Maintainability](https://api.codeclimate.com/v1/badges/7428200a61a9203d2084/maintainability)](https://codeclimate.com/github/DannyBen/intrinio/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/7428200a61a9203d2084/test_coverage)](https://codeclimate.com/github/DannyBen/intrinio/test_coverage)
 
 ---
 
