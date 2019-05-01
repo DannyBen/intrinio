@@ -4,7 +4,6 @@ Intrinio API Library and Command Line
 [![Gem Version](https://badge.fury.io/rb/intrinio.svg)](https://badge.fury.io/rb/intrinio)
 [![Build Status](https://travis-ci.com/DannyBen/intrinio.svg?branch=master)](https://travis-ci.com/DannyBen/intrinio)
 [![Maintainability](https://api.codeclimate.com/v1/badges/7428200a61a9203d2084/maintainability)](https://codeclimate.com/github/DannyBen/intrinio/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/7428200a61a9203d2084/test_coverage)](https://codeclimate.com/github/DannyBen/intrinio/test_coverage)
 
 ---
 
