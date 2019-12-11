@@ -108,8 +108,8 @@ describe CommandLine do
     context "with see command" do
       let(:command) { %w[see indices page_size:1] }
 
-      it "awesome-prints output" do
-        expected = /"data".*=>.*\[/
+      it "lovely-prints output" do
+        expected = /data:.*index_name:/m
         expect {cli.execute command}.to output(expected).to_stdout
       end
     end

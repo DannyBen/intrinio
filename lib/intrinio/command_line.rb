@@ -1,6 +1,6 @@
 require 'super_docopt'
 require 'json'
-require 'awesome_print'
+require 'lp'
 
 module Intrinio
 
@@ -47,7 +47,7 @@ module Intrinio
     end
 
     def see
-      ap intrinio.get path, params
+      lp intrinio.get path, params
     end
 
     def url
