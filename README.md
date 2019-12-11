@@ -156,7 +156,7 @@ Run `intrinio --help` for more information, or view the [full usage help][2].
 
 Examples:
 
-```bash
+```shell
 # Shows the first 5 indices
 $ intrinio see indices page_size:5
 
@@ -205,7 +205,7 @@ intrinio.cache.life = 120          # Change cache life to 2 minutes
 To enable caching for the command line, simply set one or both of 
 these environment variables:
 
-```
+```shell
 $ export INTRINIO_CACHE_DIR=cache   # default: 'cache'
 $ export INTRINIO_CACHE_LIFE=120    # default: 3600 (1 hour)
 $ intrinio get indices
