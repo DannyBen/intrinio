@@ -81,7 +81,7 @@ By default, you will get a ruby hash in return. If you wish to have more
 control over the response, use the `get!` method instead:
 
 ```ruby
-result = intrinio.get! "indices", type: 'economic', page_size: 5 
+payload = intrinio.get! "indices", type: 'economic', page_size: 5 
 
 # Request Object
 p payload.request.class
