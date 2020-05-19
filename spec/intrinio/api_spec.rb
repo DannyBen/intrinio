@@ -45,7 +45,7 @@ describe API do
           item: 'close_price', start_date: '2016-01-01', 
           end_date: '2016-01-31', sort_order: 'asc'
           
-        expect(result).to match_fixture('aapl.csv')
+        expect(result).to match_approval('aapl.csv')
       end
     end
 
@@ -68,7 +68,7 @@ describe API do
         end_date: '2016-01-31', sort_order: 'asc'
       
       expect(File).to exist(filename)
-      expect(File.read filename).to match_fixture('aapl.csv')
+      expect(File.read filename).to match_approval('aapl.csv')
       
       File.delete filename
     end
