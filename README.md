@@ -1,5 +1,4 @@
-Intrinio API Library and Command Line
-==================================================
+# Intrinio API Library and Command Line
 
 [![Gem Version](https://badge.fury.io/rb/intrinio.svg)](https://badge.fury.io/rb/intrinio)
 [![Build Status](https://github.com/DannyBen/intrinio/workflows/Test/badge.svg)](https://github.com/DannyBen/intrinio/actions?query=workflow%3ATest)
@@ -12,9 +11,7 @@ This gem provides both a Ruby library and a command line interface for the
 
 ---
 
-
-Install
---------------------------------------------------
+## Install
 
 ```
 $ gem install intrinio
@@ -27,8 +24,7 @@ gem 'intrinio'
 ```
 
 
-Features
---------------------------------------------------
+## Features
 
 * Easy to use interface.
 * Use as a library or through the command line.
@@ -37,9 +33,7 @@ Features
 * Save output to a file as JSON or CSV.
 * Includes a built in file cache (disabled by default).
 
-
-Usage
---------------------------------------------------
+## Usage
 
 First, require and initialize with your username and password.
 
@@ -133,10 +127,7 @@ Or, to save CSV, use the `save_csv` method:
 intrinio.save_csv "filename.csv", "indices", page_size: 5
 ```
 
-
-
-Command Line
---------------------------------------------------
+## Command Line
 
 The command line utility `intrinio` acts in a similar way. To use your 
 Intrinio authentication, simply set it in the environment variables 
@@ -173,9 +164,7 @@ $ intrinio url indices query:interest page_size:5
 
 ```
 
-
-Caching
---------------------------------------------------
+## Caching
 
 We are using the [Lightly][3] gem for automatic HTTP caching.
 To take the path of least surprises, caching is disabled by default.

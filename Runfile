@@ -1,20 +1,5 @@
-require "runfile-tasks"
-require_relative 'lib/intrinio'
-
 title   "Intrinio Developer Toolbelt"
 summary "Runfile tasks for building the Intrinio gem"
-version Intrinio::VERSION
 
-RunfileTasks::RubyGems.all 'intrinio'
-RunfileTasks::Testing.rspec
-RunfileTasks::Docs.rdoc
-
-help   "Run YARD server"
-action :yard do
-  exec "yard server -p3000 -B0.0.0.0 -r"
-end
-
-help   "Run interactive console"
-action :console, :c do
-  exec "bundle exec bin/console"
-end
+import_gem 'runfile-tasks/gem'
+import_gem 'runfile-tasks/yard'
