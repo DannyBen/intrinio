@@ -1,11 +1,5 @@
 # Intrinio API Library and Command Line
 
-[![Gem Version](https://badge.fury.io/rb/intrinio.svg)](https://badge.fury.io/rb/intrinio)
-[![Build Status](https://github.com/DannyBen/intrinio/workflows/Test/badge.svg)](https://github.com/DannyBen/intrinio/actions?query=workflow%3ATest)
-[![Maintainability](https://api.codeclimate.com/v1/badges/7428200a61a9203d2084/maintainability)](https://codeclimate.com/github/DannyBen/intrinio/maintainability)
-
----
-
 This gem provides both a Ruby library and a command line interface for the 
 [Intrinio][1] data service.
 
