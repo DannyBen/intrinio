@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe API do
   before :all do
     ENV['INTRINIO_AUTH'] or raise "Please set INTRINIO_AUTH=user:pass before running tests"

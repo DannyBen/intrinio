@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe 'bin/intrinio' do
   it "shows usage patterns" do
     expect(`bin/intrinio`).to match /Usage:/
