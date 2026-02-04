@@ -3,12 +3,11 @@ require 'json'
 require 'lp'
 
 module Intrinio
-
   # Handles the command line interface
   class CommandLine < SuperDocopt::Base
     version VERSION
     docopt File.expand_path 'docopt.txt', __dir__
-    subcommands ['get', 'pretty', 'see', 'url', 'save']
+    subcommands %w[get pretty see url save]
 
     attr_reader :path, :params, :file, :csv
 
@@ -18,9 +17,9 @@ module Intrinio
       @file   = args['FILE']
       @csv    = args['--csv']
 
-      if intrinio_auth.empty?
-        raise Intrinio::MissingAuth, "Missing Authentication\nPlease set INTRINIO_AUTH=username:password"
-      end
+      return unless intrinio_auth.empty?
+
+      raise Intrinio::MissingAuth, "Missing Authentication\nPlease set INTRINIO_AUTH=username:password"
     end
 
     def get
@@ -33,12 +32,12 @@ module Intrinio
     end
 
     def save
-      if csv
-        success = intrinio.save_csv file, path, params
+      success = if csv
+        intrinio.save_csv file, path, params
       else
-        success = intrinio.save file, path, params
+        intrinio.save file, path, params
       end
-      puts success ? "Saved #{file}" : "Saving failed"
+      puts success ? "Saved #{file}" : 'Saving failed'
     end
 
     def pretty
@@ -59,6 +58,7 @@ module Intrinio
     def translate_params(pairs)
       result = {}
       return result if pairs.empty?
+
       pairs.each do |pair|
         key, value = pair.split ':'
         result[key.to_sym] = value
@@ -70,7 +70,7 @@ module Intrinio
       @intrinio ||= intrinio!
     end
 
-    private
+  private
 
     def intrinio!
       Intrinio::API.new options
@@ -79,7 +79,7 @@ module Intrinio
     def options
       result = { username: username, password: password }
       return result unless cache_dir || cache_life
-      
+
       result[:use_cache] = true
       result[:cache_dir] = cache_dir if cache_dir
       result[:cache_life] = cache_life.to_i if cache_life
@@ -105,6 +105,5 @@ module Intrinio
     def cache_life
       ENV['INTRINIO_CACHE_LIFE']
     end
-
   end
 end

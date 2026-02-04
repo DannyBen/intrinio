@@ -8,13 +8,14 @@ module Intrinio
 
     attr_reader :username, :password
 
-    def initialize(opts={})
-      if opts[:auth] 
+    def initialize(opts = {})
+      if opts[:auth]
         opts[:username], opts[:password] = opts[:auth].split ':'
         opts.delete :auth
       end
 
-      @username, @password = opts[:username], opts[:password]
+      @username = opts[:username]
+      @password = opts[:password]
 
       cache.disable unless opts[:use_cache]
       cache.dir = opts[:cache_dir] if opts[:cache_dir]
