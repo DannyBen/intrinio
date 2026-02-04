@@ -1,5 +1,7 @@
 # Intrinio API Library and Command Line
 
+![repocard](repocard.svg)
+
 This gem provides both a Ruby library and a command line interface for the 
 [Intrinio][1] data service.
 

@@ -5,7 +5,7 @@ require 'intrinio'
 begin
   Intrinio::CommandLine.execute ARGV
 rescue APICake::BadResponse => e
-  STDERR.puts "#{e.class} - #{e.message}"
+  $stderr.puts "#{e.class} - #{e.message}"
 rescue Intrinio::MissingAuth => e
-  STDERR.puts e.message
+  $stderr.puts e.message
 end
